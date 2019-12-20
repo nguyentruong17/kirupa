@@ -68,21 +68,23 @@
 	  	  super(props, context);
 
         this.state = {
-          color: "",
-          bgColor: "white"
+          color: "white",
+          //we only need one state here
+	  //bgColor: "white"
         }
 
-        this.colorValue = this.colorValue.bind(this);
+        //this.colorValue = this.colorValue.bind(this);
         this.setNewColor = this.setNewColor.bind(this);
       }
-
-      colorValue(e) {
-        this.setState({color: e.target.value});
-      }
+	
+	//we don't need this method anymore with the ref available	
+      /*colorValue(e) {
+	this.setState({color: e.target.value});
+      } */
       
       setNewColor(e){
         this.setState({
-          bgColor: this.state.color
+          color: this._input.value
         });
 
         this._input.focus();
@@ -93,7 +95,7 @@
 
       render() {
         var squareStyle = {
-          backgroundColor: this.state.bgColor
+          backgroundColor: this.state.color
         };
 
         var self = this;
@@ -103,7 +105,7 @@
             <div style={squareStyle} className="colorSquare"></div>
 
             <form onSubmit={this.setNewColor}>
-              <input onChange={this.colorValue} 
+              <input /*onChange={this.colorValue}*/ 
                       ref={
                         function(el) {
                           self._input = el;
@@ -112,7 +114,7 @@
                       placeholder="Enter a color value"></input>
               <button type="submit">go</button>
             </form>
-            <ColorLabel color={this.state.bgColor}/>
+            <ColorLabel color={this.state.color}/>
           </div>
         );
       }
